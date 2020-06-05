@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>command line application</title>
+    <link rel=stylesheet href="https://mozilla.github.io/Fira/fira.css">
+    <link rel="stylesheet" href="./assets/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="./assets/codemirror/addon/fold/foldgutter.css">
+    <!-- <link rel="stylesheet" href="./assets/codemirror/addon/display/fullscreen.css"> -->
+    <link rel="stylesheet" href="./assets/codemirror/theme/dracula.css">
+    <script src="./assets//codemirror/lib/codemirror.js"></script>
+    <script src="./assets/codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="./assets/codemirror/addon/fold/foldcode.js"></script>
+    <script src="./assets/codemirror/addon/fold/foldgutter.js"></script>
+    <script src="./assets/codemirror/addon/fold/brace-fold.js"></script>
+    <script src="./assets/codemirror/addon/fold/comment-fold.js"></script>
+    <script src="./assets/codemirror/addon/display/fullscreen.js"></script>
+    <script src="./assets/codemirror/addon/display/placeholder.js"></script>
+    <script src="./assets/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="./assets/codemirror/mode/xml/xml.js"></script>
+    <script src="./assets/codemirror/mode/javascript/javascript.js"></script>
+    <script src="./assets/codemirror/mode/css/css.js"></script>
+    <script src="./assets/codemirror/mode/clike/clike.js"></script>
+    <script src="./assets/codemirror/mode/php/php.js"></script>
+    <link rel="stylesheet" href="./assets/fonts/fonts.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .CodeMirror {
+            text-align: left;
+            line-height: 1.9rem;
+            font-size: 16px;
+            height: 100vh;
+            font-family: 'Fira Code';
+            font-weight: 400;
+            font-variant-ligatures: historical-ligatures;
+        }
+        
+        .CodeMirror-linenumber {
+            color: azure;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="flex">
+        <div class="bg-gray-900 h-screen w-16">
+            <div class="flex justify-center">
+                <div class="mt-2 cursor-pointer" title="Run code (crtl+r) ">
+                    <img class="w-8 h-8" src="data:image/png;base64,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">
+                </div>
+            </div>
+        </div>
+        <div class="flex-1 h-screen">
+            <form>
+                <textarea id="code" name="code">//code here</textarea>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        var editor = CodeMirror.fromTextArea(code, {
+            lineNumbers: true,
+            theme: 'dracula',
+            tabSize: 4,
+            inputStyle: 'textarea',
+            showCursorWhenSelecting: true,
+            autofocus: true,
+            cursorHeight: 1,
+            matchBrackets: true,
+            indentUnit: 4,
+            lineWrapping: true,
+            styleActiveLine: true,
+            mode: 'application/x-httpd-php',
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+            extraKeys: {
+                "Ctrl-Q": function(cm) {
+                    cm.foldCode(cm.getCursor());
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

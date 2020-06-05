@@ -1,0 +1,10 @@
+{
+    "name": "sohel/php",
+    "authors": [
+        {
+            "name": "Sohel Mia",
+            "email": "sohelcse1999@gmail.com"
+        }
+    ],
+    "require": {}
+}
