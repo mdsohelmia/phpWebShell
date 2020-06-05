@@ -6,5 +6,7 @@
             "email": "sohelcse1999@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "psy/psysh": "^0.10.4"
+    }
 }
